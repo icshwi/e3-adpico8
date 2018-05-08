@@ -29,99 +29,34 @@
 
 include $(E3_REQUIRE_TOOLS)/driver.makefile
 
+
 # If one would like to use the module dependency restrictly,
 # one should look at other modules makefile to add more
 # In most case, one should ignore the following lines:
 
-#ifneq ($(strip $(ASYN_DEP_VERSION)),)
-#asyn_VERSION=$(ASYN_DEP_VERSION)
-#endif
+ifneq ($(strip $(AMCPICO8_DEP_VERSION)),)
+amcpico8_VERSION=$(AMCPICO8_DEP_VERSION)
+endif
+
+ifneq ($(strip $(ASYN_DEP_VERSION)),)
+asyn_VERSION=$(ASYN_DEP_VERSION)
+endif
+
+ifneq ($(strip $(ADCORE_DEP_VERSION)),)
+adcore_VERSION=$(ADCORE_DEP_VERSION)
+endif
 
 
-# APP:=calcApp
-# APPDB:=$(APP)/Db
-# APPSRC:=$(APP)/src
+APP:=pico8App
+APPDB:=$(APP)/Db
+APPSRC:=$(APP)/src
+
+EMPLATES += $(wildcard $(APPDB)/*.db)
+TEMPLATES += $(wildcard $(APPDB)/*.template)
 
 
-# USR_INCLUDES += -I$(where_am_I)$(APPSRC)
-
-# USR_CFLAGS   += -Wno-unused-variable
-# USR_CFLAGS   += -Wno-unused-function
-# USR_CFLAGS   += -Wno-unused-but-set-variable
-# USR_CPPFLAGS += -Wno-unused-variable
-# USR_CPPFLAGS += -Wno-unused-function
-# USR_CPPFLAGS += -Wno-unused-but-set-variable
-
-# TEMPLATES += $(wildcard $(APPDB)/*.db)
-
-# DBDINC_SRCS += $(APPSRC)/swaitRecord.c
-# DBDINC_SRCS += $(APPSRC)/sseqRecord.c
-# DBDINC_SRCS += $(APPSRC)/aCalcoutRecord.c
-# DBDINC_SRCS += $(APPSRC)/sCalcoutRecord.c
-# DBDINC_SRCS += $(APPSRC)/transformRecord.c
-
-# DBDINC_DBDS = $(subst .c,.dbd,   $(DBDINC_SRCS:$(APPSRC)/%=%))
-# DBDINC_HDRS = $(subst .c,.h,     $(DBDINC_SRCS:$(APPSRC)/%=%))
-# DBDINC_DEPS = $(subst .c,$(DEP), $(DBDINC_SRCS:$(APPSRC)/%=%))
-
-
-# HEADERS += $(APPSRC)/sCalcPostfix.h
-# HEADERS += $(APPSRC)/aCalcPostfix.h
-# HEADERS += $(DBDINC_HDRS)
-
-
-# SOURCES += $(APPSRC)/sCalcPostfix.c
-# SOURCES += $(APPSRC)/sCalcPerform.c
-# SOURCES += $(APPSRC)/aCalcPostfix.c
-# SOURCES += $(APPSRC)/aCalcPerform.c
-
-# SOURCES += $(APPSRC)/calcUtil.c
-# SOURCES += $(APPSRC)/myFreeListLib.c
-# SOURCES += $(APPSRC)/devsCalcoutSoft.c
-# SOURCES += $(APPSRC)/devaCalcoutSoft.c
-# SOURCES += $(APPSRC)/subAve.c
-# SOURCES += $(APPSRC)/swaitRecord.c
-# SOURCES += $(APPSRC)/editSseq.st
-# SOURCES += $(APPSRC)/interp.c
-# SOURCES += $(APPSRC)/arrayTest.c
-# SOURCES += $(APPSRC)/aCalcMonitorMem.c
-# # DBDINC_SRCS should be last of the series of SOURCES
-# SOURCES += $(DBDINC_SRCS)
-
-# DBDS += $(APPSRC)/calcSupport_LOCAL.dbd
-# DBDS += $(APPSRC)/calcSupport_withSNCSEQ.dbd
-# DBDS += $(APPSRC)/calcSupport_withSSCAN.dbd
-
-#
-# $(DBDINC_DEPS): $(DBDINC_HDRS)
-#
-# .dbd.h:
-# 	$(DBTORECORDTYPEH)  $(USR_DBDFLAGS) -o $@ $<
-#
-# .PHONY: $(DBDINC_DEPS) .dbd.h
-#
-#
-# The following lines could be useful if one uses the external lib
-#
-# Examples...
-# 
-# USR_CFLAGS += -fPIC
-# USR_CFLAGS   += -DDEBUG_PRINT
-# USR_CPPFLAGS += -DDEBUG_PRINT
-# USR_CPPFLAGS += -DUSE_TYPED_RSET
-# USR_INCLUDES += -I/usr/include/libusb-1.0
-# USR_LDFLAGS += -lusb-1.0
-# USR_LDFLAGS += -L /opt/etherlab/lib
-# USR_LDFLAGS += -lethercat
-# USR_LDFLAGS += -Wl,-rpath=/opt/etherlab/lib
-
-## SYSTEM LIBS 
-##
-# USR_LIBS += boost_regex
-# USR_LIBS += readline
-# USR_LIBS += xml2
-
-#
+SOURCES += $(APPSRC)/pico8.cpp
+DBDS    += $(APPSRC)/pico8Support.dbd
 
 ## This RULE should be used in case of inflating DB files 
 ## db rule is the default in RULES_DB, so add the empty one
