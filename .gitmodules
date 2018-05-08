@@ -1,0 +1,4 @@
+[submodule "adpico8"]
+	path = adpico8
+	url = https://github.com/hinxx/adpico8
+	ignore = all
