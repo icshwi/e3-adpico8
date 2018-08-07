@@ -1,7 +1,11 @@
 require adpico8,1.0.0-rc1
 require busy,1.7.0
+require calc,3.7.0
+require autosave,5.9.0
+require iocStats,1856ef5
 
 
+epicsEnvSet("TOP", "$(E3_CMD_TOP)/..")
 # Prefix for all records
 epicsEnvSet("PREFIX", "PICO8:")
 # The port name for the detector
@@ -59,7 +63,7 @@ epicsEnvSet("EPICS_CA_MAX_ARRAY_BYTES", "10000000")
 #    5=NDUInt32
 #    6=NDFloat32
 #    7=NDFloat64
-Pico8Configure("$(PORT)", "/dev/amc_pico_0000:09:00.0", $(YSIZE), 6, 0, 0, 0, 0)
+Pico8Configure("$(PORT)", "/dev/amc_pico_0000:05:00.0", $(YSIZE), 6, 0, 0, 0, 0)
 dbLoadRecords("pico8.template",  "P=$(PREFIX),R=det1:,  PORT=$(PORT),ADDR=0,TIMEOUT=1")
 dbLoadRecords("pico8N.template", "P=$(PREFIX),R=det1:1:,PORT=$(PORT),ADDR=0,TIMEOUT=1,NAME=$(T1)")
 dbLoadRecords("pico8N.template", "P=$(PREFIX),R=det1:2:,PORT=$(PORT),ADDR=1,TIMEOUT=1,NAME=$(T2)")
@@ -117,14 +121,23 @@ dbLoadRecords("NDFFT.template","P=$(PREFIX),R=FFT8:,PORT=FFT8,ADDR=0,TIMEOUT=1,N
 
 
 ## Load all other plugins using commonPlugins.cmd
-# < $(ADCORE)/iocBoot/commonPlugins.cmd
+< $(TOP)/cmds/adpico8_commonPlugins.cmd
 # set_requestfile_path("$(PICO8)/pico8App/Db")
 
+
+dbLoadRecords("iocAdminSoft.db", "IOC=$(PREFIX):IocStats")
 #asynSetTraceIOMask("$(PORT)",0,2)
 #asynSetTraceMask("$(PORT)",0,255)
 
+#< $(TOP)/cmds/save_restore_before_init.cmd
+
 iocInit()
+
+
+
+#< $(TOP)/cmds/save_restore_after_init.cmd
 
 # save things every thirty seconds
 #create_monitor_set("auto_settings.req", 30, "P=$(PREFIX)")
 
+dbl > "$(TOP)/$(PREFIX)_PVs.list"
