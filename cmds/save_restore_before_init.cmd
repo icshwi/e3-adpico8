@@ -2,7 +2,7 @@
 #- save_restore setup
 #- Define the autosave PREFIX in the similar way as others
 epicsEnvSet(AS_NAME,   "autosave")
-epicsEnvSet(AS_PREFIX, "$(P):$(R):$(AS_NAME):")
+epicsEnvSet(AS_PREFIX, "$(P)$(R):$(AS_NAME):")
 epicsEnvSet(AS_PATH,   "$(TOP)/$(AS_NAME)")
 
 #- Debug-output level

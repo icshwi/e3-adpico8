@@ -1,0 +1,68 @@
+
+
+
+## PREFIX, UNIT, PORT, TIMEOUT
+file "pico8.template" {
+pattern {P, R, PORT, TIMEOUT}
+{"(PREFIX)", "det$(UNIT):",  "$(PORT)", 0, "$(TIMEOUT)" }
+}
+
+## PREFIX, UNIT, PORT, TIMEOUT
+file "pico8N.template" {
+pattern {P, R, PORT, ADDR, TIMEOUT, NAME}
+{"(PREFIX)", "det$(UNIT):1:",  "$(PORT)", 0, "$(TIMEOUT)", "Ch1" }
+{"(PREFIX)", "det$(UNIT):2:",  "$(PORT)", 1, "$(TIMEOUT)", "Ch2" }
+{"(PREFIX)", "det$(UNIT):3:",  "$(PORT)", 2, "$(TIMEOUT)", "Ch3" }
+{"(PREFIX)", "det$(UNIT):4:",  "$(PORT)", 3, "$(TIMEOUT)", "Ch4" }
+{"(PREFIX)", "det$(UNIT):5:",  "$(PORT)", 4, "$(TIMEOUT)", "Ch5" }
+{"(PREFIX)", "det$(UNIT):6:",  "$(PORT)", 5, "$(TIMEOUT)", "Ch6" }
+{"(PREFIX)", "det$(UNIT):7:",  "$(PORT)", 6, "$(TIMEOUT)", "Ch7" }
+{"(PREFIX)", "det$(UNIT):8:",  "$(PORT)", 7, "$(TIMEOUT)", "Ch8" }
+}
+
+## PREFIX, UNIT, PORT, TIMEOUT
+file "NDFile.template" {
+pattern {P, R, PORT, ADDR, TIMEOUT}
+{"$(PREFIX)", "acq$(UNIT):" , "$(PORT)",0, "$(TIMEOUT)")}
+}
+
+## PREFIX, UNIT, PORT, TIMEOUT, NELEMENTS
+file "NDStdArrays.template" {
+pattern {P, R, PORT, ADDR, NDARRAY_PORT, TIMEOUT,  TYPE, FTVL, NELEMENTS)
+{"$(PREFIX)", "image$(UNIT):", "Image$(UNIT)", 0, "$(PORT)", "$(TIMEOUT)", "Float64", "DOUBLE", "$(NELEMENTS)")
+}
+
+## PREFIX, UNIT, PORT, TIMEOUT, TSPOINTS
+file "NDTimeSeries.template" {
+pattern {P, R, PORT, ADDR, TIMEOUT, NDARRAY_PORT, NDARRAY_ADDR, NCHANS, TIME_LINK, ENABLED}
+{ "(PREFIX)", "TS$(UNIT):", "TS$(UNIT)", 0, "$(TIMEOUT)", "$(PORT)", 0, "$(TSPOINTS)", "$(PREFIX)det$(UNIT):TimeStep CP MS", 1 }
+}
+
+## PREFIX, UNIT, PORT, TIMEOUT, TSPOINTS
+file "NDTimeSeriesN.template" {
+pattern {P, R, PORT, ADDR, TIMEOUT, NCHANS, NAME}
+{"(PREFIX)", "TS$(UNIT):1:", "TS$(UNIT)", 0, "$(TIMEOUT)", "$(TSPOINTS)", "Ch1" }
+{"(PREFIX)", "TS$(UNIT):2:", "TS$(UNIT)", 1, "$(TIMEOUT)", "$(TSPOINTS)", "Ch2" }
+{"(PREFIX)", "TS$(UNIT):3:", "TS$(UNIT)", 2, "$(TIMEOUT)", "$(TSPOINTS)", "Ch3" }
+{"(PREFIX)", "TS$(UNIT):4:", "TS$(UNIT)", 3, "$(TIMEOUT)", "$(TSPOINTS)", "Ch4" }
+{"(PREFIX)", "TS$(UNIT):5:", "TS$(UNIT)", 4, "$(TIMEOUT)", "$(TSPOINTS)", "Ch5" }
+{"(PREFIX)", "TS$(UNIT):6:", "TS$(UNIT)", 5, "$(TIMEOUT)", "$(TSPOINTS)", "Ch6" }
+{"(PREFIX)", "TS$(UNIT):7:", "TS$(UNIT)", 6, "$(TIMEOUT)", "$(TSPOINTS)", "Ch7" }
+{"(PREFIX)", "TS$(UNIT):8:", "TS$(UNIT)", 7, "$(TIMEOUT)", "$(TSPOINTS)", "Ch8" }
+}
+
+
+##PREFIX, UNIT, TIMEOUT, TSPOINTS
+file "NDFFT.template" {
+pattern {P, R, PORT, ADDR, TIMEOUT, NDARRAY_PORT, NDARRAY_ADDR, NCHANS, TIME_LINK, ENABLED, NAME}
+{"$(PREFIX)", "FFT$(UNIT):1:", "FFT$(UNIT)-1" , 0, "$(TIMEOUT)", "TS$(UNIT)", 0, "$(TSPOINTS)", "$(PREFIX)TS$(UNIT):TSAveragingTime_RBV CP MS", 1, "Ch1")
+{"$(PREFIX)", "FFT$(UNIT):2:", "FFT$(UNIT)-2" , 0, "$(TIMEOUT)", "TS$(UNIT)", 0, "$(TSPOINTS)", "$(PREFIX)TS$(UNIT):TSAveragingTime_RBV CP MS", 1, "Ch2")
+{"$(PREFIX)", "FFT$(UNIT):3:", "FFT$(UNIT)-3" , 0, "$(TIMEOUT)", "TS$(UNIT)", 0, "$(TSPOINTS)", "$(PREFIX)TS$(UNIT):TSAveragingTime_RBV CP MS", 1, "Ch3")
+{"$(PREFIX)", "FFT$(UNIT):4:", "FFT$(UNIT)-4" , 0, "$(TIMEOUT)", "TS$(UNIT)", 0, "$(TSPOINTS)", "$(PREFIX)TS$(UNIT):TSAveragingTime_RBV CP MS", 1, "Ch4")
+{"$(PREFIX)", "FFT$(UNIT):5:", "FFT$(UNIT)-5" , 0, "$(TIMEOUT)", "TS$(UNIT)", 0, "$(TSPOINTS)", "$(PREFIX)TS$(UNIT):TSAveragingTime_RBV CP MS", 1, "Ch5")
+{"$(PREFIX)", "FFT$(UNIT):6:", "FFT$(UNIT)-6" , 0, "$(TIMEOUT)", "TS$(UNIT)", 0, "$(TSPOINTS)", "$(PREFIX)TS$(UNIT):TSAveragingTime_RBV CP MS", 1, "Ch6")
+{"$(PREFIX)", "FFT$(UNIT):7:", "FFT$(UNIT)-7" , 0, "$(TIMEOUT)", "TS$(UNIT)", 0, "$(TSPOINTS)", "$(PREFIX)TS$(UNIT):TSAveragingTime_RBV CP MS", 1, "Ch7")
+{"$(PREFIX)", "FFT$(UNIT):8:", "FFT$(UNIT)-8" , 0, "$(TIMEOUT)", "TS$(UNIT)", 0, "$(TSPOINTS)", "$(PREFIX)TS$(UNIT):TSAveragingTime_RBV CP MS", 1, "Ch8")
+}
+
+
