@@ -64,14 +64,14 @@ pattern {R, PORT, ADDR, NAME}
 ##PREFIX, UNIT, TOUT, TSPOINTS
 file "NDFFT.template" {
 pattern { R, PORT, ADDR, NDARRAY_PORT, NDARRAY_ADDR, TIME_LINK, NAME}
-{"FFT$(UNIT)1:", "FFT$(UNIT)1", 0, "TS$(UNIT)", 0, "$(PREF)TS:TSAveragingTime_RBV CP MS", "Ch1"}
-{"FFT$(UNIT)2:", "FFT$(UNIT)2", 0, "TS$(UNIT)", 1, "$(PREF)TS:TSAveragingTime_RBV CP MS", "Ch2"}
-{"FFT$(UNIT)3:", "FFT$(UNIT)3", 0, "TS$(UNIT)", 2, "$(PREF)TS:TSAveragingTime_RBV CP MS", "Ch3"}
-{"FFT$(UNIT)4:", "FFT$(UNIT)4", 0, "TS$(UNIT)", 3, "$(PREF)TS:TSAveragingTime_RBV CP MS", "Ch4"}
-{"FFT$(UNIT)5:", "FFT$(UNIT)5", 0, "TS$(UNIT)", 4, "$(PREF)TS:TSAveragingTime_RBV CP MS", "Ch5"}
-{"FFT$(UNIT)6:", "FFT$(UNIT)6", 0, "TS$(UNIT)", 5, "$(PREF)TS:TSAveragingTime_RBV CP MS", "Ch6"}
-{"FFT$(UNIT)7:", "FFT$(UNIT)7", 0, "TS$(UNIT)", 6, "$(PREF)TS:TSAveragingTime_RBV CP MS", "Ch7"}
-{"FFT$(UNIT)8:", "FFT$(UNIT)8", 0, "TS$(UNIT)", 7, "$(PREF)TS:TSAveragingTime_RBV CP MS", "Ch8"}
+{"FFT$(UNIT)1:", "FFT$(UNIT)-1", 0, "TS$(UNIT)", 0, "$(PREF)TS:TSAveragingTime_RBV CP MS", "Ch1"}
+{"FFT$(UNIT)2:", "FFT$(UNIT)-2", 0, "TS$(UNIT)", 1, "$(PREF)TS:TSAveragingTime_RBV CP MS", "Ch2"}
+{"FFT$(UNIT)3:", "FFT$(UNIT)-3", 0, "TS$(UNIT)", 2, "$(PREF)TS:TSAveragingTime_RBV CP MS", "Ch3"}
+{"FFT$(UNIT)4:", "FFT$(UNIT)-4", 0, "TS$(UNIT)", 3, "$(PREF)TS:TSAveragingTime_RBV CP MS", "Ch4"}
+{"FFT$(UNIT)5:", "FFT$(UNIT)-5", 0, "TS$(UNIT)", 4, "$(PREF)TS:TSAveragingTime_RBV CP MS", "Ch5"}
+{"FFT$(UNIT)6:", "FFT$(UNIT)-6", 0, "TS$(UNIT)", 5, "$(PREF)TS:TSAveragingTime_RBV CP MS", "Ch6"}
+{"FFT$(UNIT)7:", "FFT$(UNIT)-7", 0, "TS$(UNIT)", 6, "$(PREF)TS:TSAveragingTime_RBV CP MS", "Ch7"}
+{"FFT$(UNIT)8:", "FFT$(UNIT)-8", 0, "TS$(UNIT)", 7, "$(PREF)TS:TSAveragingTime_RBV CP MS", "Ch8"}
 }
 
 

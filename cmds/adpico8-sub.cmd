@@ -5,17 +5,19 @@ require autosave,5.9.0
 require iocStats,1856ef5
 
 
+
+
 epicsEnvSet("TOP", "$(E3_CMD_TOP)/..")
 epicsEnvSet("DB_TOP", "$(TOP)/template")
+epicsEnvSet("CMD_TOP", "$(E3_CMD_TOP)")
+
 
 epicsEnvSet("P", "JPARC:")
 epicsEnvSet("R", "APTM")
 epicsEnvSet("IOC", "$(P)$(R)")
-
 epicsEnvSet("PREFIX", "$(IOC):")
 
-## IocStats
-dbLoadRecords("iocAdminSoft.db", "IOC=$(IOC):IocStats")
+
 
 
 # The queue size for all plugins
@@ -59,32 +61,32 @@ NDTimeSeriesConfigure("TS3", $(QSIZE), 0, "$(PICO_3)", 0, 8)
 
 # FFT$(UNIT)N are defined in substitutions
 
-NDFFTConfigure("FFT11", $(QSIZE), 0, "TS1", 0)
-NDFFTConfigure("FFT12", $(QSIZE), 0, "TS1", 1)
-NDFFTConfigure("FFT13", $(QSIZE), 0, "TS1", 2)
-NDFFTConfigure("FFT14", $(QSIZE), 0, "TS1", 3)
-NDFFTConfigure("FFT15", $(QSIZE), 0, "TS1", 4)
-NDFFTConfigure("FFT16", $(QSIZE), 0, "TS1", 5)
-NDFFTConfigure("FFT17", $(QSIZE), 0, "TS1", 6)
-NDFFTConfigure("FFT18", $(QSIZE), 0, "TS1", 7)
+NDFFTConfigure("FFT1-1", $(QSIZE), 0, "TS1", 0)
+NDFFTConfigure("FFT1-2", $(QSIZE), 0, "TS1", 1)
+NDFFTConfigure("FFT1-3", $(QSIZE), 0, "TS1", 2)
+NDFFTConfigure("FFT1-4", $(QSIZE), 0, "TS1", 3)
+NDFFTConfigure("FFT1-5", $(QSIZE), 0, "TS1", 4)
+NDFFTConfigure("FFT1-6", $(QSIZE), 0, "TS1", 5)
+NDFFTConfigure("FFT1-7", $(QSIZE), 0, "TS1", 6)
+NDFFTConfigure("FFT1-8", $(QSIZE), 0, "TS1", 7)
 
-NDFFTConfigure("FFT21", $(QSIZE), 0, "TS2", 0)
-NDFFTConfigure("FFT22", $(QSIZE), 0, "TS2", 1)
-NDFFTConfigure("FFT23", $(QSIZE), 0, "TS2", 2)
-NDFFTConfigure("FFT24", $(QSIZE), 0, "TS2", 3)
-NDFFTConfigure("FFT25", $(QSIZE), 0, "TS2", 4)
-NDFFTConfigure("FFT26", $(QSIZE), 0, "TS2", 5)
-NDFFTConfigure("FFT27", $(QSIZE), 0, "TS2", 6)
-NDFFTConfigure("FFT28", $(QSIZE), 0, "TS2", 7)
+NDFFTConfigure("FFT2-1", $(QSIZE), 0, "TS2", 0)
+NDFFTConfigure("FFT2-2", $(QSIZE), 0, "TS2", 1)
+NDFFTConfigure("FFT2-3", $(QSIZE), 0, "TS2", 2)
+NDFFTConfigure("FFT2-4", $(QSIZE), 0, "TS2", 3)
+NDFFTConfigure("FFT2-5", $(QSIZE), 0, "TS2", 4)
+NDFFTConfigure("FFT2-6", $(QSIZE), 0, "TS2", 5)
+NDFFTConfigure("FFT2-7", $(QSIZE), 0, "TS2", 6)
+NDFFTConfigure("FFT2-8", $(QSIZE), 0, "TS2", 7)
 
-NDFFTConfigure("FFT31", $(QSIZE), 0, "TS3", 0)
-NDFFTConfigure("FFT32", $(QSIZE), 0, "TS3", 1)
-NDFFTConfigure("FFT33", $(QSIZE), 0, "TS3", 2)
-NDFFTConfigure("FFT34", $(QSIZE), 0, "TS3", 3)
-NDFFTConfigure("FFT35", $(QSIZE), 0, "TS3", 4)
-NDFFTConfigure("FFT36", $(QSIZE), 0, "TS3", 5)
-NDFFTConfigure("FFT37", $(QSIZE), 0, "TS3", 6)
-NDFFTConfigure("FFT38", $(QSIZE), 0, "TS3", 7)
+NDFFTConfigure("FFT3-1", $(QSIZE), 0, "TS3", 0)
+NDFFTConfigure("FFT3-2", $(QSIZE), 0, "TS3", 1)
+NDFFTConfigure("FFT3-3", $(QSIZE), 0, "TS3", 2)
+NDFFTConfigure("FFT3-4", $(QSIZE), 0, "TS3", 3)
+NDFFTConfigure("FFT3-5", $(QSIZE), 0, "TS3", 4)
+NDFFTConfigure("FFT3-6", $(QSIZE), 0, "TS3", 5)
+NDFFTConfigure("FFT3-7", $(QSIZE), 0, "TS3", 6)
+NDFFTConfigure("FFT3-8", $(QSIZE), 0, "TS3", 7)
 
 
 dbLoadTemplate("$(DB_TOP)/amc-pico8-ess.substitutions", "PREF=$(PREFIX),UNIT=1,PICO_DEV=$(PICO_1),TOUT=1,N_ELEMENTS=$(NELEMENTS),TS_POINTS=$(TSPOINTS)")
@@ -107,19 +109,15 @@ iocshLoad "$(TOP)/cmds/adpico8_commonPlugins.cmd" "UNIT=2,PREFIX=$(PREFIX),PORT=
 iocshLoad "$(TOP)/cmds/adpico8_commonPlugins.cmd" "UNIT=3,PREFIX=$(PREFIX),PORT=$(PICO_3),QSIZE=$(QSIZE),XSIZE=$(XSIZE),YSIZE=$(YSIZE),NCHANS=$(TSPOINTS),CBUFFS=$(CBUFFS)"
 
 
-#-#
-#-#
-#-# AutoSave before INIT :  P, R, IOC should be defined
-< $(TOP)/cmds/save_restore_before_init.cmd
-
+#- AutoSave before INIT :  P, R, IOC should be defined
+iocshLoad "$(CMD_TOP)/save_restore_before_init.cmd" "P=$(P),R=$(R), IOC=$(IOC), AS_TOP=$(TOP)"
 
 
 iocInit()
 
 #-#
-#-#
-#-# AutoSave after INIT :  P, R, IOC should be defined
-< $(TOP)/cmds/save_restore_after_init.cmd
+#- AutoSave after INIT :  P, R, IOC should be defined
+iocshLoad "$(CMD_TOP)/save_restore_after_init.cmd" "P=$(P),R=$(R), IOC=$(IOC), AS_TOP=$(TOP)"
 
 
 dbl > "$(TOP)/$(P)$(R)_PVs.list"
